@@ -1,5 +1,5 @@
 import requests, pprint, time
-from config import conf
+from config import config
 
 
 
@@ -11,7 +11,7 @@ class TextWrapper:
     def send(self, message):
         payload = {
             'method':'post',
-            'to':"+2145420981",
+            'to':config['theNumber'],
             'message':message
         }
         send = requests.post('https://:@api.clicksend.com/rest/v2/send.json', auth=(self.username,self.password), params=payload)
@@ -31,9 +31,9 @@ class TextWrapper:
 
 
 
-texter = TextWrapper(conf['USERNAME'],conf['PASSWORD'])
+texter = TextWrapper(config['USERNAME'],config['PASSWORD'])
 
-texter.send(conf['TEAM'])
+texter.send(config['TEAM'])
 pprint.pprint(texter.getReply())
 response = raw_input("The price is?")
 texter.send(response)
