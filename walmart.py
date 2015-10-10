@@ -2,17 +2,6 @@ import requests
 import decimal
 import config.py as cfg
 
-class Text(object):
-    """
-    Create a Text object with the Walmart text as the argument.
-    Extracts the product name.
-    """
-    def __init__(self, text):
-        self.text = text
-
-    def get_item():
-        return self.text.find("item: ")
-
 def Walmart(object):
     """
     Create Walmart object with the item name as the argument.
