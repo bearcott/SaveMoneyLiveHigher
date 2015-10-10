@@ -1,5 +1,6 @@
 import requests
 import decimal
+import config.py as cfg
 
 class Text(object):
     """
@@ -21,7 +22,7 @@ def Walmart(object):
         self.item = item
 
     def _get_product_id(self):
-        search = requests.get('http://api.walmartlabs.com/v1/search?apiKey={0}&lsPublisherId={1}&query={2}'.format(api_key, linkshare_publisher_id, self.item))
+        search = requests.get('http://api.walmartlabs.com/v1/search?apiKey={0}&lsPublisherId={1}&query={2}'.format(walmart_api_key, linkshare_publisher_id, self.item))
 
         if search.status_code == requests.codes.ok and 'json' in r.headers['content-type']:
             product_json = search.json()
@@ -46,7 +47,7 @@ def Walmart(object):
             return self.item_id
 
         else:
-            lookup = requests.get('http://api.walmartlabs.com/v1/items/{0}?apiKey={1}&lsPublisherId={2}&format=json'.format(self.item, api_key, linkshare_publisher_id))
+            lookup = requests.get('http://api.walmartlabs.com/v1/items/{0}?apiKey={1}&lsPublisherId={2}&format=json'.format(self.item, walmart_api_key, linkshare_publisher_id))
 
         if lookup.status_code == requests.codes.ok and 'json' in r.headers['content-type']:
             item_json = lookup.json()
@@ -61,3 +62,5 @@ def Walmart(object):
 
         else:
             return -4
+
+
