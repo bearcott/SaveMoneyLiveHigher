@@ -11,7 +11,7 @@ def Walmart(object):
     def __init__(self, item):
         self.item = item
 
-    def get_product_id():
+    def get_product_id(self):
         search = requests.get('http://api.walmartlabs.com/v1/search?apiKey={apiKey}&lsPublisherId={Your LinkShare Publisher Id}&query={0}'.format(self.item)
 
         if search.status_code == requests.codes.ok and 'json' in r.headers['content-type']:
@@ -30,3 +30,25 @@ def Walmart(object):
         else:
             return -2
 
+    def get_price(self):
+        self.item_id = self.get_product_id()
+
+        if self.item_id <= 0:
+            return self.item_id
+
+        else:
+            lookup = requests.get('http://api.walmartlabs.com/v1/items/12417832?apiKey={apiKey}&lsPublisherId={Your LinkShare Publisher Id}&format=json')
+
+        if lookup.status_code == requests.codes.ok and 'json' in r.headers['content-type']:
+            item_json = lookup.json()
+
+        else:
+            return -3
+
+        price = item_json['salePrice']
+
+        if price > 0:
+            return price
+
+        else:
+            return -4
